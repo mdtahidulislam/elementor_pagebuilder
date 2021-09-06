@@ -5,7 +5,7 @@ wp-content/themes/
 wp-content/upgrade/
 wp-content/uploads/
 wp-includes/
-*.php
+/*.php
 *.html
 *.txt
 .htaccess
