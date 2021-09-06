@@ -1,0 +1,10 @@
+wp-admin/
+wp-content/plugins/akismet/
+wp-content/plugins/elementor/
+wp-content/themes/
+wp-content/upgrade/
+wp-content/uploads/
+wp-includes/
+*.php
+*.html
+*.txt
