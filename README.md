@@ -26,3 +26,12 @@
 * view.addInlineEditingAttributes('uniquekey', 'none' ); 
 * view.addRenderAttribute('uniquekey', {'class' : 'heading' });
 * {{{view.getRenderAttributeString('uniquekey')}}} ---> content template
+
+## Topic-2: Elementor Controls
+
+### Image Control and Image size:
+* add section
+* render callback
+* content template
+[media control](https://developers.elementor.com/elementor-controls/media-control/)
+[group-contol: Image-size contol](https://developers.elementor.com/elementor-controls/image-size-control/)

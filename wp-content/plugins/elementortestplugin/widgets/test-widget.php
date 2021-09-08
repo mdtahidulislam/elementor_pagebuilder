@@ -134,8 +134,44 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
                 ]
             ]
         );
+
+        $this->end_controls_section();
         // end color section
+
+        // start image section ===================================================>
+        $this->start_controls_section(
+            'image_section',
+            [
+                'label' => __('Image', 'elementortestplugin'),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+        // get image
+        $this->add_control(
+            'image',
+            [
+                'label' => __('Choose Image', 'elementortestplugin'),
+                'type' => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+            ]
+        );
+
+        // image size
+        $this->add_group_control(
+            \Elementor\Group_Control_Image_Size::get_type(),
+            [
+                'name' => 'image', // // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `thumbnail_size` and `thumbnail_custom_dimension`.
+                'default' => 'large',
+            ]
+        );
+
+        $this->end_controls_section();
+        // end image section ===================================================>
     }
+
 
     protected function render()
     {
@@ -148,6 +184,7 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
             'class' => 'heading'
         ]);
 
+
         $this->add_inline_editing_attributes('description', 'none');
         $this->add_render_attribute('description', [
             'class' => 'description'
@@ -155,6 +192,12 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
 
         echo "<h1 " . $this->get_render_attribute_string('heading') . ">" . esc_html($heading) . "</h1>";
         echo "<p " . $this->get_render_attribute_string('description') . ">" . wp_kses_post($description) . "</p>";
+
+        // for image section
+        // Get image URL
+        // echo '<img src="' . $settings['image']['url'] . '">';
+        // Get image HTML
+        echo \Elementor\Group_Control_Image_Size::get_attachment_image_html($settings);
     }
 
     protected function _content_template()
@@ -165,6 +208,9 @@ class Elementor_Test_Widget extends \Elementor\Widget_Base
                 <# view.addInlineEditingAttributes('description', 'none' ); view.addRenderAttribute('description', {'class' : 'description' }); #>
                     <h1 {{{view.getRenderAttributeString('heading')}}}>{{{settings.heading}}}</h1>
                     <p {{{view.getRenderAttributeString('description')}}}>{{{settings.description}}}</p>
-            <?php
+                    <!-- for image section -->
+                    <# var image={ id: settings.image.id, url: settings.image.url, size: settings.image_size, dimension: settings.thumbnail_custom_dimension, model: view.getEditModel() }; var image_url=elementor.imagesManager.getImageUrl( image ); #>
+                        <img src="{{{ image_url }}}" />
+                <?php
+            }
         }
-    }
